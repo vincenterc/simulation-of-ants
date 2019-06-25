@@ -12,9 +12,9 @@ class Layout extends React.Component {
     return (
       <Wrapper>
         <Helmet>
-          <title>Gatsby Starter</title>
-          <meta name="description" content="Gatsby starter..." />
-          <link rel="icon" href={favicon} />
+          <title>Simulation of Ants</title>
+          <meta name="description" content="The simulation of ants" />
+          {/* <link rel="icon" href={favicon} /> */}
         </Helmet>
         {children}
       </Wrapper>
