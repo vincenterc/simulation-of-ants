@@ -43,7 +43,7 @@ class World {
     this.terrain[this.antsHomePosition.col][this.antsHomePosition.row] =
       TILE_TYPES.HOME
 
-    this._create_ant(this.antsHomePosition.col, this.antsHomePosition.row)
+    this.add_ant(this.antsHomePosition.col, this.antsHomePosition.row)
 
     this._setTileTypeAtRandom(p, TILE_TYPES.FOOD, this.food_num)
     this._setTileTypeAtRandom(p, TILE_TYPES.WATER, this.water_num)
@@ -93,7 +93,7 @@ class World {
     return { col, row }
   }
 
-  _create_ant = (col, row) => {
+  add_ant = (col, row) => {
     this.ants.push(new Ant(ANT_STATES.FORAGE, col, row))
   }
 }
