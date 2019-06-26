@@ -6,11 +6,13 @@ export default function sketch(p) {
   p.setup = function() {
     p.createCanvas(p.windowWidth, p.windowHeight)
     p.background(255)
+    p.frameRate(10)
 
     world = new World(p)
   }
 
   p.draw = function() {
+    world.update(p)
     world.display(p)
   }
 

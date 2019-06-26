@@ -2,7 +2,7 @@ import Ant, { ANT_STATES } from './ant'
 
 export const TILE_SIZE = 20
 
-const TILE_TYPES = {
+export const TILE_TYPES = {
   GROUND: 1,
   HOME: 2,
   FOOD: 3,
@@ -15,9 +15,9 @@ class World {
     this.cols = Math.floor(p.width / TILE_SIZE)
     this.rows = Math.floor(p.height / TILE_SIZE)
 
-    this.food_num = 10
-    this.water_num = 10
-    this.poison_num = 5
+    this.food_num = 30
+    this.water_num = 25
+    this.poison_num = 8
 
     this.terrain = Array(this.cols)
       .fill()
@@ -44,10 +44,16 @@ class World {
       TILE_TYPES.HOME
 
     this.add_ant(this.antsHomePosition.col, this.antsHomePosition.row)
+    this.add_ant(this.antsHomePosition.col, this.antsHomePosition.row)
 
     this._setTileTypeAtRandom(p, TILE_TYPES.FOOD, this.food_num)
     this._setTileTypeAtRandom(p, TILE_TYPES.WATER, this.water_num)
     this._setTileTypeAtRandom(p, TILE_TYPES.POISON, this.poison_num)
+  }
+
+  update = p => {
+    this.ants.forEach(ant => ant.update(p, this))
+    this.ants = this.ants.filter(ant => ant.state !== ANT_STATES.DEAD)
   }
 
   display = p => {
