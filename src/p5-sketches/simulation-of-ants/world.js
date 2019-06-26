@@ -1,3 +1,7 @@
+import Ant, { ANT_STATES } from './ant'
+
+export const TILE_SIZE = 20
+
 const TILE_TYPES = {
   GROUND: 1,
   HOME: 2,
@@ -8,10 +12,8 @@ const TILE_TYPES = {
 
 class World {
   constructor(p) {
-    this.tile_size = 20
-
-    this.cols = Math.floor(p.width / this.tile_size)
-    this.rows = Math.floor(p.height / this.tile_size)
+    this.cols = Math.floor(p.width / TILE_SIZE)
+    this.rows = Math.floor(p.height / TILE_SIZE)
 
     this.food_num = 10
     this.water_num = 10
@@ -20,6 +22,9 @@ class World {
     this.terrain = Array(this.cols)
       .fill()
       .map(() => Array(this.rows).fill())
+
+    this.antsHomePosition = {}
+    this.ants = []
 
     this.init(p)
   }
@@ -31,8 +36,14 @@ class World {
       }
     }
 
-    this.terrain[Math.ceil(this.cols / 2)][Math.ceil(this.rows / 2)] =
+    this.antsHomePosition = {
+      col: Math.ceil(this.cols / 2),
+      row: Math.ceil(this.rows / 2),
+    }
+    this.terrain[this.antsHomePosition.col][this.antsHomePosition.row] =
       TILE_TYPES.HOME
+
+    this._create_ant()
 
     this._setTileTypeAtRandom(p, TILE_TYPES.FOOD, this.food_num)
     this._setTileTypeAtRandom(p, TILE_TYPES.WATER, this.water_num)
@@ -55,14 +66,11 @@ class World {
           p.fill(255)
         }
 
-        p.rect(
-          i * this.tile_size,
-          j * this.tile_size,
-          this.tile_size,
-          this.tile_size
-        )
+        p.rect(i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE)
       })
     )
+
+    this.ants.forEach(ant => ant.display(p))
   }
 
   _setTileTypeAtRandom = (p, type, num) => {
@@ -83,6 +91,16 @@ class World {
     } while (this.terrain[col][row] !== TILE_TYPES.GROUND)
 
     return { col, row }
+  }
+
+  _create_ant = () => {
+    this.ants.push(
+      new Ant(
+        ANT_STATES.FORAGE,
+        this.antsHomePosition.col,
+        this.antsHomePosition.row
+      )
+    )
   }
 }
 
