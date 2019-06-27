@@ -150,8 +150,17 @@ export default class Ant {
   }
 
   display = p => {
-    p.noStroke()
-    p.fill(0)
+    p.strokeWeight(2)
+    if (this.state === ANT_STATES.FORAGE) {
+      p.stroke(0, 255, 0)
+    } else if (this.state === ANT_STATES.GO_HOME) {
+      p.stroke(232, 155, 0)
+    } else if (this.state === ANT_STATES.THIRSTY) {
+      p.stroke(0, 0, 255)
+    } else {
+      p.stroke(50)
+    }
+    p.fill(50)
     p.circle(
       this.col * TILE_SIZE + TILE_SIZE / 2,
       this.row * TILE_SIZE + TILE_SIZE / 2,
