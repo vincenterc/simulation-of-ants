@@ -160,21 +160,44 @@ export default class Ant {
   }
 
   _goHome = (homePosition, colsTerrain, rowsTerrain) => {
+    // Bresenham's line algorithm
     let col = this.col
     let row = this.row
-    let homeCol = homePosition.col
-    let homeRow = homePosition.row
+    let endCol = homePosition.col
+    let endRow = homePosition.row
+    let dCol = Math.abs(endCol - col)
+    let dRow = Math.abs(endRow - row)
+    let sCol = col < endCol ? 1 : -1
+    let sRow = row < endRow ? 1 : -1
+    let err = dCol - dRow
+    let e2 = 2 * err
 
-    if (col < homeCol) col++
-    else if (col > homeCol) col--
+    if (e2 > -dRow) {
+      err -= dRow
+      col += sCol
+    }
 
-    if (row < homeRow) row++
-    else if (row > homeRow) row--
+    if (e2 < dCol) {
+      err += dCol
+      row += sRow
+    }
 
-    if (col < 0) col = colsTerrain - 1
-    if (col > colsTerrain - 1) col = 0
-    if (row < 0) row = rowsTerrain - 1
-    if (row > rowsTerrain - 1) row = 0
+    // basic
+    // let col = this.col
+    // let row = this.row
+    // let homeCol = homePosition.col
+    // let homeRow = homePosition.row
+
+    // if (col < homeCol) col++
+    // else if (col > homeCol) col--
+
+    // if (row < homeRow) row++
+    // else if (row > homeRow) row--
+
+    // if (col < 0) col = colsTerrain - 1
+    // if (col > colsTerrain - 1) col = 0
+    // if (row < 0) row = rowsTerrain - 1
+    // if (row > rowsTerrain - 1) row = 0
 
     return { col, row }
   }
