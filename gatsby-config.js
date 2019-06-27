@@ -1,4 +1,4 @@
 module.exports = {
-  pathPrefix: '/gatsby-starter',
+  pathPrefix: '/simulation-of-ants',
   plugins: [`gatsby-plugin-react-helmet`, `gatsby-plugin-styled-components`],
 }
