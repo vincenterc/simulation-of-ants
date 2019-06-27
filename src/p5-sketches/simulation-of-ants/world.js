@@ -15,8 +15,8 @@ class World {
     this.cols = Math.floor(p.width / TILE_SIZE)
     this.rows = Math.floor(p.height / TILE_SIZE)
 
-    this.food_num = 30
-    this.water_num = 25
+    this.food_num = 20
+    this.water_num = 15
     this.poison_num = 8
 
     this.terrain = Array(this.cols)
