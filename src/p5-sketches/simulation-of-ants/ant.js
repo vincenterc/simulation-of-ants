@@ -204,7 +204,7 @@ export default class Ant {
 
   _randomMove = (p, colsTerrain, rowsTerrain) => {
     let col = this.col + Math.floor(p.random(0, 3) - 1)
-    let row = this.col + Math.floor(p.random(0, 3) - 1)
+    let row = this.row + Math.floor(p.random(0, 3) - 1)
 
     if (col < 0) col = colsTerrain - 1
     if (col > colsTerrain - 1) col = 0
